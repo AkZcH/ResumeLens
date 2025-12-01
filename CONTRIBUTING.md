@@ -1,0 +1,5 @@
+- Always branch from `dev`
+- PR → dev, never to main
+- Use meaningful commit messages
+- Keep PRs small
+- Document new functions briefly
