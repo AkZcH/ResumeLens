@@ -268,10 +268,3 @@ Assign these clearly to avoid overlap:
 MVP development phase underway.
 
 ---
-
-If you want, I can also generate:
-✅ 1-page product spec
-✅ `CONTRIBUTING.md` file
-✅ `CODEOWNERS` file
-✅ `.gitignore`
-Just tell me.
