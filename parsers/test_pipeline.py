@@ -1,9 +1,8 @@
 import json
-from parser_pipeline import parse_resume_pipeline
+from parsers.parser_pipeline import parse_resume_pipeline
 
-# Test the complete pipeline
 try:
-    result = parse_resume_pipeline("../docs/resume1.pdf")
+    result = parse_resume_pipeline("docs/image_resume.pdf")
     print(json.dumps(result, indent=2, ensure_ascii=False))
 except Exception as e:
     print(f"Error: {e}")

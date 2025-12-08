@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import google.generativeai as genai
 from dotenv import load_dotenv
 
@@ -100,6 +101,14 @@ OUTPUT:
 Return ONLY valid JSON.
 """
 
+def repair_json(text):
+    text = text.strip()
+    text = re.sub(r'^[^{]*', '', text)
+    text = re.sub(r'[^}]*$', '', text)
+    text = re.sub(r',\s*([}\]])', r'\1', text)
+    text = text.replace("\n", " ")
+    return text
+
 class LLMStructurizer:
     def __init__(self):
         api_key = os.getenv('GEMINI_API_KEY')
@@ -107,28 +116,51 @@ class LLMStructurizer:
             raise ValueError("GEMINI_API_KEY not found in environment variables")
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel("gemini-2.5-flash")
-    
+
+    def try_parse_json(self, text):
+        try:
+            return json.loads(text)
+        except:
+            fixed = repair_json(text)
+            return json.loads(fixed)
+
+    def strict_prompt(self, raw_text):
+        return (
+            "Return ONLY valid JSON. "
+            "No explanation. No comments. No markdown.\n\n"
+            + raw_text
+        )
+
     def structure_resume(self, raw_text: str) -> dict:
         prompt = PROMPT_TEMPLATE.replace("{{RAW_RESUME_TEXT}}", raw_text)
-        
+
         try:
             response = self.model.generate_content(prompt)
             cleaned = response.text.strip()
-            
-            # Remove markdown code blocks if present
+
             if cleaned.startswith("```json"):
                 cleaned = cleaned[7:]
             if cleaned.endswith("```"):
                 cleaned = cleaned[:-3]
-            
-            # Debug: print the raw response
+
             print("Raw LLM Response:")
             print(cleaned[:1000] + "..." if len(cleaned) > 1000 else cleaned)
-            
-            return json.loads(cleaned)
-        except json.JSONDecodeError as e:
-            print(f"JSON Parse Error: {e}")
-            print(f"Response text: {cleaned[:500]}...")
-            raise RuntimeError(f"Invalid JSON from LLM: {e}")
-        except Exception as e:
-            raise RuntimeError(f"Error structuring resume with LLM: {e}")
+
+            return self.try_parse_json(cleaned)
+
+        except Exception:
+            strict_response = self.model.generate_content(
+                self.strict_prompt(raw_text)
+            ).text.strip()
+
+            try:
+                return self.try_parse_json(strict_response)
+            except:
+                return {
+                    "contact": {},
+                    "summary": "",
+                    "skills": {"technical": [], "product": [], "other": []},
+                    "experience": [],
+                    "projects": [],
+                    "education": []
+                }
