@@ -70,22 +70,16 @@ class PDFExtractor:
         # Try pdfplumber
         text = PDFExtractor.extract_with_pdfplumber(file_path)
         if len(text) > 30:
-            print("📄 Extracted using: pdfplumber")  # cooment out later
+            # print("📄 Extracted using: pdfplumber")  # cooment out later
             return text
 
         # Try PyPDF
         text = PDFExtractor.extract_with_pypdf(file_path)
         if len(text) > 30:
-            print("📄 Extracted using: PyPDF")  # later on comment out
+            # print("📄 Extracted using: PyPDF")  # later on comment out
             return text
 
         # Try OCR
-        print("🖼️ Using OCR (Tesseract)...")  # later on comment out
-        text = PDFExtractor.extract_with_ocr(file_path, lang=ocr_lang)
-
-        if len(text) > 0:
-            print("🔍 Extracted using: OCR")  
-        else:
-            print("❌ OCR extraction failed")
-
+        # print("🖼️ Using OCR (Tesseract)...")  # later on comment out
+        text = PDFExtractor.extract_with_ocr(file_path, lang=ocr_lang)        
         return text

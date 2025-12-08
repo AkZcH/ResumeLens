@@ -1,9 +1,9 @@
 import re
-from pdf_extractor import PDFExtractor
-from text_cleaner import TextCleaner
-from helpers.regex_patterns import EMAIL_REGEX, PHONE_REGEX
-from helpers.skill_dictionary import SKILL_KEYWORDS, get_all_skills
-from helpers.section_headers import SECTION_HEADERS
+from parsers.pdf_extractor import PDFExtractor
+from parsers.text_cleaner import TextCleaner
+from parsers.helpers.regex_patterns import EMAIL_REGEX, PHONE_REGEX
+from parsers.helpers.skill_dictionary import SKILL_KEYWORDS, get_all_skills
+from parsers.helpers.section_headers import SECTION_HEADERS
 
 class ResumeParser:
     def __init__(self, file_path: str):

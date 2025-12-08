@@ -1,4 +1,4 @@
-from helpers.skill_dictionary import SKILL_KEYWORDS
+from parsers.helpers.skill_dictionary import SKILL_KEYWORDS
 
 class SkillExtractor:
     @staticmethod
