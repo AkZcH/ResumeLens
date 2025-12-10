@@ -1,22 +1,30 @@
-import re
+from .llm_structurizer import LLMStructurizer
+from .text_cleaner import TextCleaner
+
 
 class JDParser:
-    def __init__(self, jd_text: str):
-        self.text = jd_text.lower()
+    """
+    LLM-powered Job Description parser.
+    Uses Groq model + strict JSON extraction prompt.
+    """
 
-    def extract_skills(self, skills_list):
-        found = []
-        for skill in skills_list:
-            if skill.lower() in self.text:
-                found.append(skill)
-        return found
-
-    def extract_requirements(self):
-        """Find bullet points / responsibilities."""
-        bullets = re.findall(r"[-•*]\s+(.*)", self.text)
-        return bullets
+    def __init__(self, jd_text: str, model="llama-3.3-70b-versatile"):
+        self.raw_text = jd_text
+        self.clean_text = TextCleaner.clean(jd_text)
+        self.model = model
 
     def parse(self):
-        return {
-            "requirements": self.extract_requirements()
-        }
+        """
+        Build prompt → Send to LLM → Return clean JSON.
+        """
+        llm = LLMStructurizer(model=self.model)
+
+        prompt = llm.build_jd_prompt(self.clean_text)
+
+        data = llm.generate_json(prompt)
+
+        # Add raw text for debugging/traceability
+        data["raw_text"] = self.raw_text
+
+        return data
+
