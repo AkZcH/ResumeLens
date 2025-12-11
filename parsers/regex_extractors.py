@@ -1,5 +1,5 @@
 import re
-from helpers.regex_patterns import EMAIL_REGEX, PHONE_REGEX
+from parsers.helpers.regex_patterns import EMAIL_REGEX, PHONE_REGEX
 
 class RegexExtractors:
     @staticmethod

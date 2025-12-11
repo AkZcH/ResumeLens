@@ -1,9 +1,10 @@
-from pdf_extractor import PDFExtractor
-from text_cleaner import TextCleaner
-from regex_extractors import RegexExtractors
-from skill_extractor import SkillExtractor
-from section_classifier import SectionClassifier
-from llm_structurizer import LLMStructurizer
+from parsers.pdf_extractor import PDFExtractor
+from parsers.text_cleaner import TextCleaner
+from parsers.regex_extractors import RegexExtractors
+from parsers.skill_extractor import SkillExtractor
+from parsers.section_classifier import SectionClassifier
+from parsers.llm_structurizer import LLMStructurizer
+
 
 def parse_resume_pipeline(file_path: str) -> dict:
     """Complete resume parsing pipeline."""

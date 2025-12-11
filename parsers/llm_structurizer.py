@@ -3,7 +3,6 @@ import os
 from groq import Groq
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 
@@ -109,5 +108,4 @@ Return ONLY valid JSON.
         try:
             return json.loads(output)
         except Exception:
-            # If the LLM fails to produce valid JSON, return raw output
             return {"raw_output": output}

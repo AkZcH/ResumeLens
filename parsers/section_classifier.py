@@ -1,4 +1,4 @@
-from helpers.section_headers import SECTION_HEADERS
+from parsers.helpers.section_headers import SECTION_HEADERS
 
 class SectionClassifier:
     @staticmethod
