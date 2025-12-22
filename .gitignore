@@ -1,15 +1,22 @@
-# Python
+# Python env + caches
+backend/env/
+backend/__pycache__/
 __pycache__/
 *.pyc
-env/
-venv/
-.env
-*.log
 
-# Node
-node_modules/
-dist/
+# Node modules (frontend)
+frontend/node_modules/
+frontend/dist/
+
+# Root env files
+.env
 .env.local
 
-# OS junk
+# Editor junk
+.vscode/
+.idea/
+
+# System files
+*.log
 .DS_Store
+Thumbs.db
