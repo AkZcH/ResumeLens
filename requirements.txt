@@ -1,0 +1,23 @@
+# FastAPI stack
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# File handling
+PyPDF2==3.0.1
+python-docx==1.1.0
+
+# LangChain ecosystem (COMPATIBLE SET)
+langchain==0.2.16
+langchain-core==0.2.40
+langchain-text-splitters==0.2.4
+langchain-openai==0.1.25
+langchain-huggingface==0.0.3
+
+# ML deps
+sentence-transformers>=2.6.0
+tokenizers>=0.19.1
+
+# Pydantic (required by LangChain 1.x)
+pydantic>=2.7,<3
+pydantic-settings>=2.7,<3
