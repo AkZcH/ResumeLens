@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeLens - AI Resume Analyzer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Particle Background -->
+<div id="particles-bg"></div>
+
+<!-- Landing Page -->
+<section class="landing" id="landing">
+  <div class="parallax-layer"></div>
+  
+  <!-- 3D Career Object -->
+  <div class="career-object">
+      </div>
+
+  <div class="landing-content">
+    <h1 class="brand">ResumeLens</h1>
+    <p class="quote"><em>See your resume through the eyes of an ATS</em></p>
+    
+    <div class="description-box">
+      <p>
+        ResumeLens is an AI-driven platform that analyzes your resume against a job
+        description, identifies skill gaps, highlights missing keywords, and
+        suggests improvements to increase your chances of passing ATS filters
+        and interviews.
+      </p>
+    </div>
+
+    <button class="cta-btn" onclick="goToDashboard()">Analyze My Resume</button>
+  </div>
+</section>
+
+<!-- Dashboard Section -->
+<section class="dashboards" id="dashboards">
+  
+  <!-- Progress Steps -->
+  <div class="progress-bar">
+    <div class="step active" data-step="1">
+      <span class="step-num">1</span>
+      <span class="step-label">Upload</span>
+    </div>
+    <div class="progress-line"></div>
+    <div class="step" data-step="2">
+      <span class="step-num">2</span>
+      <span class="step-label">Analysis</span>
+    </div>
+    <div class="progress-line"></div>
+    <div class="step" data-step="3">
+      <span class="step-num">3</span>
+      <span class="step-label">Improve</span>
+    </div>
+  </div>
+
+  <!-- Dashboard 1: Input -->
+  <div class="dashboard" id="dashboard-1">
+    <h2>Resume & Job Description</h2>
+
+    <div class="input-grid">
+      <!-- Resume Upload -->
+      <div class="card upload-card">
+        <h3>📄 Upload Resume</h3>
+        <div class="upload-zone" id="upload-zone">
+          <input type="file" id="resume-file" accept=".pdf,.docx,.txt" hidden>
+          <label for="resume-file" class="upload-label">
+            <div class="upload-icon">📁</div>
+            <p id="file-name">Drag & drop or click to upload</p>
+            <span class="file-types">PDF, DOCX, TXT supported</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Job Description -->
+      <div class="card">
+        <h3>💼 Job Description</h3>
+        <textarea id="job-description" placeholder="Paste job description here..."></textarea>
+      </div>
+    </div>
+
+    <button class="primary-btn" onclick="analyzeResume()">
+      <span id="analyze-text">Analyze Resume</span>
+      <span id="analyze-loader" class="loader" style="display:none;">Analyzing...</span>
+    </button>
+  </div>
+
+  <!-- Dashboard 2: Analysis -->
+  <div class="dashboard" id="dashboard-2" style="display:none;">
+    <h2>Analysis Overview</h2>
+
+    <!-- Stats Cards -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">ATS Match</div>
+        <div class="stat-value" id="ats-score">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Keyword Match</div>
+        <div class="stat-value" id="keyword-score">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Skill Match</div>
+        <div class="stat-value" id="skill-score">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Missing Skills</div>
+        <div class="stat-value" id="missing-count">--</div>
+      </div>
+    </div>
+
+    <!-- Skill Gap -->
+    <div class="skill-gap">
+      <div class="skill-section">
+        <h3>✅ Skills in Resume</h3>
+        <div id="matched-skills" class="tag-container"></div>
+      </div>
+      <div class="skill-section">
+        <h3>❌ Missing Skills</h3>
+        <div id="missing-skills" class="tag-container"></div>
+      </div>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="suggestions-box">
+      <h3>💡 Suggestions</h3>
+      <ul id="suggestions-list"></ul>
+    </div>
+
+    <button class="primary-btn" onclick="goToImprovements()">View Improvements →</button>
+  </div>
+
+  <!-- Dashboard 3: Improvements -->
+  <div class="dashboard" id="dashboard-3" style="display:none;">
+    <h2>Improvements</h2>
+
+    <!-- Before/After Bullets -->
+    <div class="improvements-section">
+      <h3>📝 Bullet Point Improvements</h3>
+      <div id="bullet-improvements"></div>
+    </div>
+
+    <!-- Skill Suggestions -->
+    <div class="skills-add">
+      <h3>🎯 Suggested Skills to Add</h3>
+      <div class="skill-categories">
+        <div class="skill-cat">
+          <strong>Technical Skills:</strong>
+          <p>Docker, Kubernetes, TensorFlow, PyTorch, FastAPI</p>
+        </div>
+        <div class="skill-cat">
+          <strong>Tools & Technologies:</strong>
+          <p>Git, CI/CD, AWS, Azure, Jenkins, JIRA</p>
+        </div>
+        <div class="skill-cat">
+          <strong>Soft Skills:</strong>
+          <p>Leadership, Communication, Team Collaboration, Problem Solving</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="secondary-btn" onclick="resetDashboard()">Analyze Another Resume</button>
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
